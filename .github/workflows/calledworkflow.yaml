@@ -29,8 +29,12 @@ jobs:
 
       - name: Update values.yaml
         run: |
+          # Extract tag from env.image_name_tag
+          tag=$(echo "${{ env.image_name_tag }}" | cut -d: -f2)
+          # Replace "tag" with the current tag in the imageTag field
+          sed -i "s/imageTag: my_testapp_nov:latest/imageTag: my_testapp_nov:${tag}/" values.yaml
           # echo "app:" > values.yaml
           # echo "  name: my_app" >> values.yaml
-          echo "  version: ${{ env.image_name_tag }}" >> values.yaml
+          # echo "  version: ${{ env.image_name_tag }}" >> values.yaml
           cat values.yaml
           
