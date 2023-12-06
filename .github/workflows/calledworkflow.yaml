@@ -10,6 +10,7 @@ jobs:
     env:
       parameter1: ${{ github.event.client_payload.parameter1 }} #this parameter will reached by caller workflow
       parameter2: ${{ github.event.client_payload.parameter2 }}
+      image_name_tag: ${{github.event.client_payload.image_name_tag }}
     
     steps:
       - uses: actions/checkout@v3
@@ -24,3 +25,4 @@ jobs:
           echo $parameter1 
           #this parameters will be featching from the called workflow
           echo $parameter2
+          echo $image_name_tag
