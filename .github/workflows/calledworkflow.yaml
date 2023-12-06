@@ -26,3 +26,11 @@ jobs:
           #this parameters will be featching from the called workflow
           echo $parameter2
           echo $image_name_tag
+
+      - name: Update values.yaml
+        run: |
+          # echo "app:" > values.yaml
+          # echo "  name: my_app" >> values.yaml
+          echo "  version: ${{ env.image_name_tag }}" >> values.yaml
+          cat values.yaml
+          
