@@ -1,3 +1,1 @@
-app:
-  name: my_testapp_nov
-  version: 1.0.0
+imageTag: my_testapp_nov:latest
