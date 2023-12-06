@@ -36,5 +36,6 @@ jobs:
           # echo "app:" > values.yaml
           # echo "  name: my_app" >> values.yaml
           # echo "  version: ${{ env.image_name_tag }}" >> values.yaml
+          echo below is the updated values.yaml file
           cat values.yaml
           
