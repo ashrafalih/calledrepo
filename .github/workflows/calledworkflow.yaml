@@ -32,6 +32,7 @@ jobs:
           #this parameters will be featching from the called workflow
           echo $parameter2
           echo $image_name_tag
+          echo "cross checking: $branch_name"
 
       - name: Update values.yaml
         run: |
