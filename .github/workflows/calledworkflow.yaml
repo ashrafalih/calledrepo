@@ -3,6 +3,8 @@ name: CalledWorkflow
 on:
   repository_dispatch:
     types: [CalledWorkflow]
+    
+permissions: write-all
 
 jobs:
   build:
