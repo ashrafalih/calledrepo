@@ -24,6 +24,18 @@ jobs:
           echo ****branch_name****
           echo "Branch Name: ${{ env.branch_name }}"
 
+      - name: Check if branch exists
+        id: check_branch
+        run: |
+          if git show-ref --quiet "refs/heads/${{ env.branch_name }}"; then
+            echo "Branch ${{ env.branch_name }} exists."
+          else
+            echo "Branch ${{ env.branch_name }} does not exist."
+            echo "Creating branch ${{ env.branch_name }}..."
+            git checkout -b ${{ env.branch_name }}
+            git push origin ${{ env.branch_name }}
+          fi
+
       - name: Run a multi-line script
         run: |
           echo add other actions to build,
