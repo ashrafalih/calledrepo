@@ -14,6 +14,7 @@ jobs:
       parameter2: ${{ github.event.client_payload.parameter2 }}
       image_name_tag: ${{github.event.client_payload.image_name_tag }}
       branch_name: ${{ github.event.client_payload.branch_name }}
+      values_yaml_path: ${{ github.event.client_payload.values_yaml_path }}
     
     steps:
       - uses: actions/checkout@v3
@@ -47,16 +48,23 @@ jobs:
           echo $parameter2
           echo $image_name_tag
           echo "cross checking: $branch_name"
+          echo "checking the path which i passed from the caller repo: $values_yaml_path"
 
       - name: Update values.yaml
         run: |
+          # # Extract tag from env.image_name_tag
+          # tag=$(echo "${{ env.image_name_tag }}" | cut -d: -f2)
+          # # Replace "tag" with the current tag in the imageTag field
+          # sed -i "s/imageTag: my_testapp_nov:latest/imageTag: my_testapp_nov:${tag}/" values.yaml
+          # echo below is the updated values.yaml file
+          # cat values.yaml
+          ####
           # Extract tag from env.image_name_tag
           tag=$(echo "${{ env.image_name_tag }}" | cut -d: -f2)
           # Replace "tag" with the current tag in the imageTag field
-          sed -i "s/imageTag: my_testapp_nov:latest/imageTag: my_testapp_nov:${tag}/" values.yaml
-          # echo "app:" > values.yaml
-          # echo "  name: my_app" >> values.yaml
-          # echo "  version: ${{ env.image_name_tag }}" >> values.yaml
-          echo below is the updated values.yaml file
-          cat values.yaml
+          sed -i "s/imageTag: my_testapp_nov:latest/imageTag: my_testapp_nov:${tag}/" "${{ env.values_yaml_path }}"
+          # Display the updated values.yaml file
+          cat "${{ env.values_yaml_path }}"
+        
+          
           
