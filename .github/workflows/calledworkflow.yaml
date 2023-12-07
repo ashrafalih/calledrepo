@@ -11,12 +11,18 @@ jobs:
       parameter1: ${{ github.event.client_payload.parameter1 }} #this parameter will reached by caller workflow
       parameter2: ${{ github.event.client_payload.parameter2 }}
       image_name_tag: ${{github.event.client_payload.image_name_tag }}
+      branch_name: ${{ github.event.client_payload.branch_name }}
     
     steps:
       - uses: actions/checkout@v3
 
       - name: Run a one-line script
         run: echo hello ashraf test passed
+
+      - name: Display Branch Name of Caller_repo
+        run: |
+          echo ****branch_name****
+          echo "Branch Name: ${{ env.branch_name }}"
 
       - name: Run a multi-line script
         run: |
